@@ -19,7 +19,7 @@ Mermaid addresses this problem by cutting the time, effort and tooling that is r
 The text definitions for Mermaid diagrams allows for it to be updated easily, it can also be made part of production scripts (and other pieces of code).
 So less time needs be spent on documenting, as a separate and laborious task. <br/>
 
-Even non-programmers can create diagrams through the [Mermaid Live Editor](https://github.com/mermaidjs/mermaid-live-editor), visit [Tutorials](./docs/getting-started/Tutorials.md) for the video tutorials.
+Even non-programmers can create diagrams through the [Mermaid Live Editor](https://github.com/mermaidjs/mermaid-live-editor), visit [Tutorials](./getting-started/Tutorials.md) for the video tutorials.
 
 Want to see what can be built with mermaid, or what applications already support it? Read the [Integrations and Usages for Mermaid](./integrations.md).
 
