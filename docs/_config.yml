@@ -32,3 +32,5 @@ exclude:
   - Makefile
   - Gemfile
   - Gemfile.lock
+
+theme: jekyll-theme-cayman
