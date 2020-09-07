@@ -1,7 +1,4 @@
----
-sort: 3
-title: Flowchart
----
+
 
 # Flowcharts - Basic Syntax
 
