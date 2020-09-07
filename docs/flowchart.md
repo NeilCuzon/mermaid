@@ -1,10 +1,15 @@
+---
+sort: 3
+title: Flowchart
+---
+
 # Flowcharts - Basic Syntax
 
 ## Graph
 
-This statement declares a new graph and the direction of the graph layout.
+This statement declares the direction of the Flowchart.
 
-This declares a graph oriented from top to bottom (`TD` or `TB`).
+This declares the graph is oriented from top to bottom (`TD` or `TB`).
 
 ```
 graph TD
@@ -15,7 +20,7 @@ graph TD
     Start --> Stop
 ```
 
-This declares a graph oriented from left to right (`LR`).
+This declares the graph is oriented from left to right (`LR`).
 
 ```
 graph LR
@@ -26,15 +31,25 @@ graph LR
     Start --> Stop
 ```
 
-Possible directions are:
+## Flowchart Orientation
 
-* TB - top bottom
-* BT - bottom top
-* RL - right left
-* LR - left right
+Possible FlowChart orientations are:
 
-* TD - same as TB
+* TB - top to bottom
+* TD - top-down/ same as top to bottom
+* BT - bottom to top
+* RL - right to left
+* LR - left to right
 
+
+
+## Flowcharts
+
+This renders a flowchart that allows for features such as: more arrow types, multi directional arrows, and linking to and from subgraphs.
+
+Apart from the graph type, the syntax is the same. This is currently experimental but when the beta period is over, both the graph and flowchart keywords will render in the new way. This means it is ok to start beta testing flowcharts.
+
+> **Important note** Do not type the word "end" as a Flowchart node. Capitalize all or any one the letters to keep the flowchart from breaking, i.e, "End" or "END". Or you can apply this [workaround](https://github.com/mermaid-js/mermaid/issues/1444#issuecomment-639528897).**
 
 ## Nodes & shapes
 
@@ -49,7 +64,8 @@ graph LR
 graph LR
     id
 ```
-Note that the id is what is displayed in the box.
+
+> **Note** The id is what is displayed in the box.
 
 ### A node with text
 
@@ -66,6 +82,7 @@ graph LR
     id1[This is the text in the box]
 ```
 
+## Node Shapes
 
 ### A node with round edges
 
@@ -87,6 +104,17 @@ graph LR
 ```mermaid
 graph LR
     id1([This is the text in the box])
+```
+
+### A node in a subroutine shape
+
+```
+graph LR
+    id1[[This is the text in the box]]
+```
+```mermaid
+graph LR
+    id1[[This is the text in the box]]
 ```
 
 ### A node in a cylindrical shape
@@ -135,14 +163,18 @@ graph LR
 ```
 
 ### A hexagon node
+{% raw %}
+```
+graph LR
+    id1{{This is the text in the box}}
+```
+{% endraw %}
 
-```
-graph LR
-    id1{{This is the text in the box}}
-```
 ```mermaid
+{% raw %}
 graph LR
     id1{{This is the text in the box}}
+{% endraw %}
 ```
 
 ### Parallelogram
@@ -218,7 +250,7 @@ graph LR
 
 ```
 graph LR
-    A-- This is the text ---B
+    A-- This is the text! ---B
 ```
 ```mermaid
 graph LR
@@ -345,6 +377,106 @@ graph TB
     B --> D
 ```
 
+### Beta: New arrow types
+
+When using flowchart instead of graph there is the are new types of arrows supported as per below:
+
+```
+flowchart LR
+    A --o B
+    B --x C
+```
+
+```mermaid
+flowchart LR
+    A --o B
+    B --x C
+```
+
+
+### Beta: Multi directional arrows
+
+When using flowchart instead of graph there is the possibility to use multidirectional arrows.
+
+```
+flowchart LR
+    A o--o B
+    B <--> C
+    C x--x D
+```
+
+```mermaid
+flowchart LR
+    A o--o B
+    B <--> C
+    C x--x D
+```
+
+### Minimum length of a link
+
+Each node in the flowchart is ultimately assigned to a rank in the rendered
+graph, i.e. to a vertical or horizontal level (depending on the flowchart
+orientation), based on the nodes to which it is linked. By default, links
+can span any number of ranks, but you can ask for any link to be longer
+than the others by adding extra dashes in the link definition.
+
+In the following example, two extra dashes are added in the link from node _B_
+to node _E_, so that it spans two more ranks than regular links:
+
+```
+graph TD
+    A[Start] --> B{Is it?};
+    B -->|Yes| C[OK];
+    C --> D[Rethink];
+    D --> B;
+    B ---->|No| E[End];
+```
+
+```mermaid
+graph TD
+    A[Start] --> B{Is it?};
+    B -->|Yes| C[OK];
+    C --> D[Rethink];
+    D --> B;
+    B ---->|No| E[End];
+```
+
+> **Note** Links may still be made longer than the requested number of ranks
+> by the rendering engine to accommodate other requests.
+
+When the link label is written in the middle of the link, the extra dashes must
+be added on the right side of the link. The following example is equivalent to
+the previous one:
+
+```
+graph TD
+    A[Start] --> B{Is it?};
+    B -- Yes --> C[OK];
+    C --> D[Rethink];
+    D --> B;
+    B -- No ----> E[End];
+```
+
+```mermaid
+graph TD
+    A[Start] --> B{Is it?};
+    B -->|Yes| C[OK];
+    C --> D[Rethink];
+    D --> B;
+    B ---->|No| E[End];
+```
+
+For dotted or thick links, the characters to add are equals signs or dots,
+as summed up in the following table:
+
+| Length            |    1   |    2    |     3    |
+|-------------------|:------:|:-------:|:--------:|
+| Normal            |  `---` |  `----` |  `-----` |
+| Normal with arrow |  `-->` |  `--->` |  `---->` |
+| Thick             |  `===` |  `====` |  `=====` |
+| Thick with arrow  |  `==>` |  `===>` |  `====>` |
+| Dotted            | `-.-`  | `-..-`  | `-...-`  |
+| Dotted with arrow | `-.->` | `-..->` | `-...->` |
 
 ## Special characters that break syntax
 
@@ -409,6 +541,60 @@ graph TB
     end
  ```
 
+ You can also set an excplicit id for the subgraph.
+
+```
+graph TB
+    c1-->a2
+    subgraph ide1 [one]
+    a1-->a2
+    end
+ ```
+```mermaid
+graph TB
+    c1-->a2
+    subgraph id1 [one]
+    a1-->a2
+    end
+ ```
+
+## Beta: flowcharts
+
+With the graphtype flowcharts it is also possible to set edges to and from subgraphs as in the graph below.
+
+```
+flowchart TB
+    c1-->a2
+    subgraph one
+    a1-->a2
+    end
+    subgraph two
+    b1-->b2
+    end
+    subgraph three
+    c1-->c2
+    end
+    one --> two
+    three --> two
+    two --> c2
+ ```
+
+```mermaid
+flowchart TB
+    c1-->a2
+    subgraph one
+    a1-->a2
+    end
+    subgraph two
+    b1-->b2
+    end
+    subgraph three
+    c1-->c2
+    end
+    one --> two
+    three --> two
+    two --> c2
+ ```
 
 ## Interaction
 
@@ -441,7 +627,7 @@ graph LR;
 The tooltip text is surrounded in double quotes. The styles of the tooltip are set by the class .mermaidTooltip.
 
 ```mermaid
-graph LR;
+graph LR
     A-->B;
     click A callback "Tooltip"
     click B "http://www.github.com" "This is a link"
@@ -449,6 +635,23 @@ graph LR;
 > **Success** The tooltip functionality and the ability to link to urls are available from version 0.5.2.
 
 ?> Due to limitations with how Docsify handles JavaScript callback functions, an alternate working demo for the above code can be viewed at [this jsfiddle](https://jsfiddle.net/s37cjoau/3/).
+
+Links are opened in the same browser tab/window by default. It is possible to change this by adding a link target to the click definition (`_self`, `_blank`, `_parent` and `_top` are supported):
+```
+graph LR;
+    A-->B;
+    B-->C;
+    click A "http://www.github.com" _blank
+    click B "http://www.github.com" "Open this in a new tab" _blank
+```
+
+```mermaid
+graph LR;
+    A-->B;
+    B-->C;
+    click A "http://www.github.com" _blank
+    click B "http://www.github.com" "Open this in a new tab" _blank
+```
 
 Beginners tip, a full example using interactive links in a html context:
 ```
@@ -511,13 +714,13 @@ It is possible to apply specific styles such as a thicker border or a different 
 graph LR
     id1(Start)-->id2(Stop)
     style id1 fill:#f9f,stroke:#333,stroke-width:4px
-    style id2 fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5, 5
+    style id2 fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
 ```
 ```mermaid
 graph LR
     id1(Start)-->id2(Stop)
     style id1 fill:#f9f,stroke:#333,stroke-width:4px
-    style id2 fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5, 5
+    style id2 fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
 ```
 
 
