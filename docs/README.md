@@ -6,6 +6,24 @@
 
 ![banner](./img/header.png)
 
+```
+graph TD
+    A[Start] --> B{Is it?};
+    B -->|Yes| C[OK];
+    C --> D[Rethink];
+    D --> B;
+    B ---->|No| E[End];
+```
+
+```mermaid
+graph TD
+    A[Start] --> B{Is it?};
+    B -->|Yes| C[OK];
+    C --> D[Rethink];
+    D --> B;
+    B ---->|No| E[End];
+```
+
 Generation of diagrams and flowcharts from text in a similar manner as markdown.
 
 Ever wanted to simplify documentation and avoid heavy tools like Visio when explaining your code?
