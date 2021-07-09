@@ -66,7 +66,7 @@
     "dompurify": "2.2.9",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
-    "babel-jest": "^24.9.0",
+    "babel-jest": "^27.0.6",
     "babel-loader": "^8.0.4",
     "coveralls": "^3.0.2",
     "css-loader": "^2.0.1",
